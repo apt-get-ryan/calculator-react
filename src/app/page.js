@@ -1,13 +1,15 @@
 "use client";
 import Button from "@/components/calculator/Button";
 import Display from "@/components/calculator/Display";
+import Wrapper from "@/components/calculator/Wrapper";
 import { GlobalProvider } from "@/components/context/globalContext";
 import { IoBackspaceOutline } from "react-icons/io5";
 
 const Calculator = () => {
+
     return (
         <GlobalProvider>
-            <div className="bg-slate-800 w-full max-w-56 p-1 rounded text-slate-100 grid grid-cols-4 gap-1">
+            <Wrapper>
                 <Display/>
 
                 <Button keyValue={'Clear'}style="darker">C</Button>
@@ -33,7 +35,7 @@ const Calculator = () => {
                 <Button keyValue='.'>,</Button>
                 <Button keyValue={'='} style="amber">=</Button>
 
-            </div>
+            </Wrapper>
         </GlobalProvider>
     );
 }

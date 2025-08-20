@@ -1,5 +1,5 @@
 import { isNumber } from "@/utils/common";
-import React, { useCallback, useContext, useState} from "react";
+import React, {useContext, useState} from "react";
 
 export const globalContext = React.createContext();
 
@@ -7,13 +7,13 @@ export const GlobalProvider = ({children}) => {
     const [expression, setExpression] = useState('');
 
 
-    const eraseLastKey = useCallback(() => {
+    const eraseLastKey = () => {
         setExpression(prevExp => prevExp.slice(0, -1));
-    })
-    const clear = useCallback(() => {
+    }
+    const clear = () => {
         setExpression('');
-    })
-    const handleCalc = useCallback(() => {
+    }
+    const handleCalc = () => {
         try {
             if(expression == '')
                 return;
@@ -25,9 +25,9 @@ export const GlobalProvider = ({children}) => {
         } catch(err) {
             console.log(err);
         }
-    })
+    }
 
-    const addToExpression = useCallback((key) => {
+    const addToExpression = (key) => {
         if(expression == 'NaN' || expression === 'Infinity')
         {
             setExpression('');
@@ -40,12 +40,12 @@ export const GlobalProvider = ({children}) => {
         }
 
         if(isNumber(key) || ['+', '-', '/', '*', '.'].includes(key))
-            setExpression(expression + key);
+            setExpression(prev => prev + key);
         else if (key === 'Backspace') eraseLastKey();
         else if (key === 'Clear') clear();
         else if (key === '=') handleCalc();
 
-    }, [expression, setExpression, isNumber, eraseLastKey, clear, handleCalc])
+    }
     
     const contextValue = {expression, setExpression, addToExpression}
     return (
